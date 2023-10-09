@@ -39,7 +39,11 @@ function passwordVerify ($password) {
 
 }
 
-
+/*
+$motDePasse = "blablabla";
+$resultat = passwordVerify($password);
+echo $resultat;
+*/
 // Fonction pour ajouter uun salt
 
 function addSalt($nameToSalt){
