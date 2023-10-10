@@ -1,30 +1,26 @@
 <?php
-require_once ("functions.php");
-var_dump($_POST);
-if ($_POST) {
-    $pwd = $_POST ['fname'];
+require_once("functions.php");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $pwd = $_POST["mot_de_passe"];
+
+    // Valider le mot de passe
     $verificationResponse = passwordVerify($pwd);
-    
-    if (empty($pwd)) {
-        echo "</br> Veuillez saisir un mot de passe";
-        
+    if ($verificationResponse['isValid']) {
+        // Ajouter le salt au mot de passe
+        $saltedPassword = addSalt($pwd);
+        // Chiffrer le mot de passe
+        $pwdChiffre = encryptPassword($saltedPassword);
+        echo "<h1> MOT DE PASSE </h1>";
+        echo "<br>";
+        echo "Sel: 123-S0leil<br>";
+        echo "Mot de passe chiffré: $pwdChiffre<br>";
+        echo "Mot de passe correct.";
+        echo "<br>";
+        echo '<br><button onclick="window.location.href=\'index.php\'">Créer un nouveau mot de passe</button>'; // Ajouter un bouton pour créer un nouveau mot de passe
+    } else {
+        echo "Erreur : " . $verificationResponse['msg'];
+        echo '<br><button onclick="window.location.href=\'index.php\'">Réessayer</button>';
     }
-    else {
-        // Valider le mot de passe
-        $validationResponse = passwordVerify($pwd);
-        if ($validationResponse['isValid']) {
-            $saltedPassword = addSalt($pwd);
-            echo "</br> Votre mot de passe est : " . $saltedPassword;
-        } else {
-            echo "</br> Erreur : " . $validationResponse['msg'];
-        }
-    }
-
-
-    echo '</br>';
-    $saltedPassword = addSalt($_POST['fname']);
-// $saltedPassword = addSalt($_POST['fname']);
-var_dump($saltedPassword);
-
 }
 ?>
