@@ -14,7 +14,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<h1> MOT DE PASSE </h1>";
         echo "<br>";
         echo "Sel: 123-S0leil<br>";
-        echo "Mot de passe chiffré: $pwdChiffre<br>";
+        echo "Mot de passe salé : $saltedPassword<br>";
+        // ajouté qprès date
+        echo "Mot de passe chiffré: $pwdChiffre<br>"; 
         echo "Mot de passe correct.";
         echo "<br>";
         echo '<br><button onclick="window.location.href=\'index.php\'">Créer un nouveau mot de passe</button>'; // Ajouter un bouton pour créer un nouveau mot de passe
